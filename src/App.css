@@ -1,38 +1,87 @@
-.App {
-  text-align: center;
+* {
+  font-family: Segoe UI, Segoe UI Midlevel, Segoe WP, Arial, Sans-Serif;
+  margin-left: 4px;
+  max-width: 100%;
+}
+.logo {
+  height: 50px;
+  width: 50px;
+  margin-right: 100rem;
+  margin-top: 20px;
+}
+.Products {
+  display: inline-grid;
+  max-height: -webkit-fill-available;
+  font-size: 10px;
+  /* border: 1px solid white; */
+  /* margin-top: 10px; */
+}
+.Products-image {
+  width: 230px;
+  /* height: 330px; */
+  display: grid;
+  margin-right: 1rem;
+  margin-top: 10px;
+  /* grid-gap: 15px; */
+}
+.one-product {
+  border: 1px solid white;
+  height: 500px;
+  transition: width 2s;
+  margin-top: 80px;
+  /* height: 200px; */
+}
+.one-product:hover {
+  border: 2px solid rgb(202, 173, 173);
+  /* border-spacing: 1000px; */
+  height: 530px;
+  /* margin-top: 90px; */
+}
+.product-vendor {
+  margin-bottom: 4px;
+}
+.product-name {
+  margin-bottom: 4px;
+}
+.product-price {
+  font-weight: bold;
+  margin-left: -10px;
+}
+.cart-style {
+  font-size: 12px;
+  /* padding: 2px; */
+}
+.User-icon {
+  margin-left: 30px;
+  margin-right: 20px;
+  display: inline-block;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Product-offer {
+  position: relative;
+  z-index: 3;
+  padding: 0 10px;
+  height: 100%;
+  margin-top: 12px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.search-option {
+  margin-left: 30px;
+  display: inline-grid;
+  margin: auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.search-input {
+  height: 20px;
+  width: 30rem;
+  margin-left: 2%;
+  margin-bottom: 70px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.search-font {
+  margin-left: 100px;
+}
+.login-button {
+  background-color: pink;
 }
