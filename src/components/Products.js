@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import ecommerce from "../ecommerce.json";
 import logo from "../images/logo.svg";
-import Login from "../pages/Login";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
-import { Route } from "react-router-dom";
-import * as ROUTES from "../constants/routes";
+import Product from "../components/Product";
+import ViewCart from "../components/ViewCart";
+import Fuse from "fuse.js";
 
+//Fontawesome icons
 import {
   faSearch,
   faUser,
@@ -15,32 +14,49 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Products() {
-  const history = useHistory();
-  const [searchInput, setSearchInput] = useState();
-  const [changeBehaviour, setChangeBehaviour] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
   const [changeLoginBehaviour, setChangeLoginBehaviour] = useState(false);
   const [login, setLogin] = useState(false);
-  const [cart, setCartHandler] = useState("");
-
-  useEffect(() => {});
+  const [cart, setCart] = useState([]);
+  const [showCart, setShowCart] = useState(false);
+  const [cartItems, setcartItems] = useState([]);
 
   const elementSearch = <FontAwesomeIcon icon={faSearch} />;
   const elementUser = <FontAwesomeIcon icon={faUser} />;
   const elementCart = <FontAwesomeIcon icon={faCartArrowDown} />;
 
-  const showVal = (e) => {
-    // e.target.style;
-    setChangeBehaviour(true);
+  //Searching / Filtering
+  const fuse = new Fuse(ecommerce, {
+    keys: ["name", "vendor", "tag"],
+  });
+
+  const results = fuse.search(searchInput);
+  const ecommerceResults = searchInput
+    ? results.map((result) => result.item)
+    : ecommerce;
+  const handleOnSearch = ({ currentTarget = {} }) => {
+    const { value } = currentTarget;
+    setSearchInput(value);
   };
 
-  const hideVal = (e) => {
-    // e.target.style;
-    setChangeBehaviour(false);
+  const addToCart = (product) => {
+    console.log("we are n cart");
+    setCart([...cart, product]);
+  };
+
+  const addCartItemsfromChild = (pId) => {
+    var t1 = cartItems;
+    t1.push(pId);
+    setcartItems(t1);
+  };
+  const showCartState = () => {
+    setShowCart(!showCart);
   };
 
   return (
     <>
       {/* Header */}
+
       <div
         style={{
           flexGrow: 1,
@@ -73,84 +89,72 @@ export default function Products() {
             className="search-input"
             value={searchInput}
             placeholder="Search..."
-            onChange={({ target }) => setSearchInput(target.value)}
+            onChange={handleOnSearch}
           />
           <React.Fragment>
             <a
               className="User-icon"
               onMouseEnter={() => setChangeLoginBehaviour(true)}
+              onMouseLeave={() => setChangeLoginBehaviour(false)}
             >
               {elementUser}
               {changeLoginBehaviour ? (
-                <span>
-                  <button
-                    className="login-button"
-                    onClick={() => setLogin(true) && history.push(ROUTES.HOME)}
-                    exact
-                    path={ROUTES.LOG_IN}
-                    to={ROUTES.LOG_IN}
-                    //onMouseLeave={() => setChangeLoginBehaviour(false)}
-                  >
-                    Sign up/ Login
-                  </button>
-                  <a onMouseEnter={() => setChangeLoginBehaviour(true)}>
-                    Orders
-                  </a>
-                  {login ? <Login /> : null}
-                </span>
+                <div>
+                  <ul className="usericon-hover">
+                    <li>
+                      <button
+                        className="login-button"
+                        onClick={() => setLogin(true)}
+                      >
+                        Sign up/ Login
+                      </button>
+                    </li>
+                    <li>
+                      <a onMouseEnter={() => setChangeLoginBehaviour(true)}>
+                        Orders
+                      </a>
+                    </li>
+                    <li>
+                      <a>Coupons</a>
+                    </li>
+                    <li>
+                      <a>Contact Us</a>
+                    </li>
+                  </ul>
+                </div>
               ) : null}
             </a>
           </React.Fragment>
-          <a className="cart-font">
+          <a className="cart-font" onClick={showCartState}>
             {elementCart}
-            <sup>2</sup>
+            <sup>{cart.length}</sup>
           </a>
         </div>
       </div>
-
-      {/* Products */}
-      <div to="/home">
-        {ecommerce.map((product) => {
-          return (
-            <div key={product.id} className="Products">
-              <div className="one-product">
-                <img
-                  src={product.image_src}
-                  className="Products-image "
-                  // onMouseEnter={() => setChangeBehaviour(true)}
-                  onMouseEnter={showVal}
-                />
-                {changeBehaviour ? (
-                  <p
-                    onmouseleave={() => setChangeBehaviour(false)}
-                    className="cart-style"
-                  >
-                    <button>ADD TO CART</button>
-                    <p key={product.options.id}>
-                      Sizes:
-                      {product.options.map((data) => {
-                        return data.value + ",";
-                      })}
-                    </p>
-                  </p>
-                ) : null}
-
-                <div key={product.options.id}>
-                  <h1 className="product-vendor">{product.vendor}</h1>
-                  <p className="product-name">{product.name}</p>
-                  <div className="Product-offer">
-                    <span className="product-price">${product.price}</span>
-                    <span>
-                      <strike>${product.compare_at_price}</strike>
-                    </span>
-                    <span>(40% off)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      {/* Products map  */}
+      {showCart ? (
+        <ViewCart selItems={cartItems} />
+      ) : (
+        <div>
+          {ecommerceResults.map((product, index) => {
+            debugger;
+            return (
+              <Product
+                key={index}
+                pId={product.id}
+                vendor={product.vendor}
+                name={product.name}
+                isrc={product.image_src}
+                size={product.options}
+                rate={product.price}
+                offer={product.compare_at_price}
+                addToCartItems={addToCart}
+                pMethod={addCartItemsfromChild}
+              />
+            );
+          })}
+        </div>
+      )}
     </>
   );
 }
