@@ -1,0 +1,34 @@
+.Products {
+  /* display: inline-grid; */
+  max-height: -webkit-fill-available;
+  font-size: 10px;
+  float: left;
+  margin-bottom: 10px;
+}
+.Products-image {
+  width: 230px;
+  display: grid;
+  margin-right: 1rem;
+  margin-top: 100px;
+  margin-bottom: 10px;
+}
+.child {
+  display: none;
+}
+.Products:hover .child {
+  display: block;
+}
+.one-product {
+  border: 1px solid white;
+  height: 500px;
+  transition: width 2s;
+}
+.cart-button {
+  margin-top: 20px;
+  margin-right: 5px;
+  height: 10px;
+  padding: 4px;
+}
+.size-style {
+  float: left;
+}

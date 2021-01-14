@@ -1,0 +1,50 @@
+* {
+  font-family: Segoe UI, Segoe UI Midlevel, Segoe WP, Arial, Sans-Serif;
+  margin-left: 4px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.logo {
+  height: 50px;
+  width: 50px;
+  margin-right: 100rem;
+  margin-top: 20px;
+}
+.product-price {
+  font-weight: bold;
+  margin-left: -10px;
+}
+.cart-style {
+  font-size: 12px;
+  margin-right: 20px;
+}
+.User-icon {
+  margin-left: 2%;
+  margin-bottom: 70px;
+  margin-right: 20px;
+  display: inline-block;
+}
+.usericon-hover {
+  list-style-type: none;
+  margin-top: 5px;
+  background: white;
+  border-radius: 5px;
+  float: left;
+  left: 20px;
+  color: plum;
+  font-size: 16px;
+}
+.search-input {
+  height: 25px;
+  width: 30rem;
+  margin-left: 2%;
+  margin-bottom: 70px;
+}
+.search-font {
+  margin-left: 100px;
+}
+.login-button {
+  color: plum;
+  border-color: antiquewhite;
+  font-size: 16px;
+}
