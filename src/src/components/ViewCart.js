@@ -24,9 +24,6 @@ function Viewcart({ selItems }) {
                   <p>{ele.vendor}</p>
                   <p>{ele.name}</p>
                   <p>${ele.price}</p>
-                  {/* <div key={index} className="product">
-                    <img src={ele.image_src} className="Pimg" />
-                  </div> */}
                 </div>
               </div>
             );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ecommerce from "../ecommerce.json";
 import logo from "../images/logo.svg";
-import Login from "../pages/Login";
 import Product from "../components/Product";
 import ViewCart from "../components/ViewCart";
 import Fuse from "fuse.js";
@@ -19,8 +18,6 @@ export default function Products() {
   const [changeLoginBehaviour, setChangeLoginBehaviour] = useState(false);
   const [login, setLogin] = useState(false);
   const [cart, setCart] = useState([]);
-  //const [renderpage, setRenderPage] = useState(["products"]);
-  //const [viewCart, setViewCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [cartItems, setcartItems] = useState([]);
 
@@ -53,18 +50,9 @@ export default function Products() {
     setcartItems(t1);
   };
   const showCartState = () => {
-    alert("in cart page");
     setShowCart(!showCart);
   };
-  // const navigateTo = (nextPage) => {
-  //   setRenderPage(nextPage);
-  // };
 
-  // const viewCartHandler = (product) => {
-  //   console.log("viewing cart");
-  //   setViewCart([...cart]);
-  //   console.log(cart);
-  // };
   return (
     <>
       {/* Header */}
@@ -107,7 +95,7 @@ export default function Products() {
             <a
               className="User-icon"
               onMouseEnter={() => setChangeLoginBehaviour(true)}
-              //onMouseLeave={() => setChangeLoginBehaviour(false)}
+              onMouseLeave={() => setChangeLoginBehaviour(false)}
             >
               {elementUser}
               {changeLoginBehaviour ? (
@@ -121,7 +109,7 @@ export default function Products() {
                         Sign up/ Login
                       </button>
                     </li>
-                    <li style={{ padding: "10px" }}>
+                    <li>
                       <a onMouseEnter={() => setChangeLoginBehaviour(true)}>
                         Orders
                       </a>
@@ -133,21 +121,13 @@ export default function Products() {
                       <a>Contact Us</a>
                     </li>
                   </ul>
-
-                  {login ? <Login /> : null}
                 </div>
               ) : null}
             </a>
           </React.Fragment>
-          <a
-            className="cart-font"
-            onClick={showCartState}
-            // onClick={() => viewCartHandler("product")}
-          >
+          <a className="cart-font" onClick={showCartState}>
             {elementCart}
             <sup>{cart.length}</sup>
-            {/* {renderpage === "products" && <Product />}
-            {renderpage === "cart" && <ViewCart />} */}
           </a>
         </div>
       </div>
